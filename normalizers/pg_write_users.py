@@ -2,6 +2,8 @@ import datetime
 import os
 from typing import List
 
+from utility.creds import credentials as creds
+
 import psycopg2
 
 
@@ -14,13 +16,7 @@ TRANSACTION_SIZE = 1000
 # size 1000     execution time 3m 10s   block I/O 10.5k     trans/p/s 11   tuples_in 10k
 
 def get_pg_conn():
-    return psycopg2.connect(
-        dbname='sonhodor',
-        user='root',
-        password='root',
-        host='192.168.1.84',
-        port='5432'
-    )
+    return psycopg2.connect(**creds['pg'])
 
 def get_file_modify_datetime(path: str) -> str:
     mtime = os.stat(path).st_mtime

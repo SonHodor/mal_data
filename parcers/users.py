@@ -1,10 +1,10 @@
-from time import sleep, time
+import sys
 from typing import List
 
 import requests
 from bs4 import BeautifulSoup
 
-from sleep import Sleeper
+from utility.sleep import Sleeper
 
 
 ALPHANUMS = 'abcdefghijklmnopqrstuvwxyz0123456789-_'
@@ -60,7 +60,7 @@ def pagination_write(s: requests.Session, combination: str, url: str) -> None:
 
         iteration_time = sleeper.sleep_for_time()
         write_iter_time_to_log(iteration_time)
-       
+
 
 
 def parce_users_from_combinations(combinations: List[str]) -> None:
@@ -75,7 +75,7 @@ def parce_users_from_combinations(combinations: List[str]) -> None:
         pagination_write(s, combination, url)
 
 
-def main():
+def get_users():
     comb_list: List[str] = [
         f'{a}{b}{c}'
         for a in ALPHANUMS if a in ['a','e','i','o']
@@ -87,4 +87,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    get_users()

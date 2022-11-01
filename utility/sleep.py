@@ -5,9 +5,14 @@ class Sleeper:
     prev_time = 0
     TIME_BETWEEN_ITERATIONS = 0
 
+    last_time = 0
+
+
     def __init__(self, time_to_sleep):
         self.TIME_BETWEEN_ITERATIONS = time_to_sleep
         self.prev_time = time()
+        self.last_time = self.prev_time
+
 
     def sleep_for_time(self):
         self.iteration_time = time() - self.prev_time
@@ -17,7 +22,16 @@ class Sleeper:
             self.time_to_sleep = 0
         
         sleep(self.time_to_sleep)
-        # print(f'i just slept for {self.time_to_sleep} + {self.iteration_time}')
+        
         self.prev_time = time()
         return self.time_to_sleep
-
+    
+    
+    def time_since_last_time(self, to_ping=False):
+        now = time()
+        time_passed = now - self.last_time
+        self.last_time = now
+        if to_ping:
+            return int(time_passed * 1000)
+        else:
+            time_passed

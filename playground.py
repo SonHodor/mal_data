@@ -2,7 +2,8 @@ import datetime
 import os
 from time import sleep
 
-from parcers.sleep import Sleeper
+from utility.sleep import Sleeper
+from utility.creds import credentials as creds
 
 import psycopg2
 import requests
@@ -76,13 +77,7 @@ def test_get_file_creation_date():
 
 
 def test_psycopg_conn():
-    with psycopg2.connect(
-        dbname='sonhodor',
-        user='root',
-        password='root',
-        host='192.168.1.84',
-        port='5432'
-    ) as conn:
+    with psycopg2.connect(**creds['pg']) as conn:
 
         with conn.cursor() as cur:
             cur.execute("SELECT DISTINCT find_combination FROM parcers.mal_users_raw")
